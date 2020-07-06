@@ -1,0 +1,26 @@
+{
+  "name": "vue-ast-editor",
+  "version": "0.1.0",
+  "description": "A tool for programmatically manipulating Vue single-file components",
+  "main": "src/VueAstEditor.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "vue",
+    "parser",
+    "ast",
+    "sfc"
+  ],
+  "author": "Cameron King <cameronking42@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ast-types": "^0.13.3",
+    "jscodeshift": "^0.10.0",
+    "posthtml": "^0.13.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
+  }
+}
