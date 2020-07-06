@@ -94,6 +94,15 @@ module.exports = class VueAstEditor {
 
     makeOptionProp(name) {
         switch (name) {
+            case'beforeCreate':
+            case'created':
+            case'beforeMount':
+            case'mounted':
+            case'beforeUpdate':
+            case'updated':
+            case'beforeDestroy':
+            case'destroyed':
+                return objProp(name, emptyFunc(), { method: true });
             case 'data':
                 return objProp(name, j.functionExpression(null, [],
                     j.blockStatement([
@@ -110,22 +119,27 @@ module.exports = class VueAstEditor {
     }
 
     sortOptions() {
-        // ignoring hooks for now
-        // I don't feel like looking them up in this moment and I rarely use them, other than mounted
-        const nonHookOptions = [
+        const options = [
             'mixins',
             'components',
             'props',
             'data',
             'computed',
             'watch',
+            'methods',
+            'beforeCreate',
+            'created',
+            'beforeMount',
             'mounted',
-            'methods'
+            'beforeUpdate',
+            'updated',
+            'beforeDestroy',
+            'destroyed',
         ];
 
         let currSlot = 0;
         const defaultExport = getDefaultExport(this.script).get().value;
-        nonHookOptions.forEach(option => {
+        options.forEach(option => {
             const prop = defaultExport.properties.find(prop => prop.key.name == option);
             if (!prop) return;
             remove(defaultExport.properties, prop);
@@ -454,6 +468,16 @@ module.exports = class VueAstEditor {
 
     removeMethod(name) {
         this.removeFromOption('methods', name);
+    }
+
+    addHook(name) {
+        // option() is a little magical, since it creates the option if it can't find it
+        // and the creation logic is a switch statement based on the name
+        this.option(name);
+    }
+
+    removeHook(name) {
+        this.option(name).remove();
     }
 
     async refactorIntoComponent(htmlNode, cmpPath, attrs=[]) {

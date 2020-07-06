@@ -529,6 +529,25 @@ export default {}
         });
     });
 
+    describe('lifecycle hooks', () => {
+        it('adds hooks', () => {
+            asts.addHook('mounted');
+            expect(asts.toString()).to.equal(`<script>
+export default {
+    mounted() {}
+};
+</script>`);
+        });
+
+        it('removes hooks', () => {
+            asts.addHook('mounted');
+            asts.removeHook('mounted');
+            expect(asts.toString()).to.equal(`<script>
+export default {}
+</script>`);
+        });
+    });
+
     describe('component refactoring', () => {
         it('creates new components', async () => {
             const cmp = new VueAstEditor(`<script>
