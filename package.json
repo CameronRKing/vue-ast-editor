@@ -1,10 +1,14 @@
 {
   "name": "vue-ast-editor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tool for programmatically manipulating Vue single-file components",
   "main": "src/VueAstEditor.js",
   "scripts": {
     "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CameronRKing/vue-ast-editor.git"
   },
   "keywords": [
     "vue",
